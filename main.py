@@ -1,3 +1,4 @@
+
 import streamlit  as st
 import plotly.express as px
 from backend import get_data
@@ -24,5 +25,13 @@ if place:
         st.plotly_chart(figure)
 
     if options == "Sky":
-        filtered_data = [dict_data["weather"][0]["main"] for dict_data in filtered_data]
-        st.image()
+        images = {
+            "Clear":"images/clear.png",
+            "Clouds":"images/cloud.png",
+            "Rain":"images/rain.png",
+            "Snow":"images/snow.png"
+        }
+        
+        sky_conditions = [dict_data["weather"][0]["main"] for dict_data in filtered_data]
+        image_paths = [images[condition] for condition in sky_conditions]
+        st.image(image_paths, width=115)
